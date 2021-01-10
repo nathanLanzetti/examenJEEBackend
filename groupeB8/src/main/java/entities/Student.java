@@ -1,13 +1,21 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+import enums.Bloc;
+import enums.Section;
 
 @Entity
 public class Student implements Serializable {
@@ -21,22 +29,23 @@ public class Student implements Serializable {
 	private Integer id;
 	private String lastname;
 	private String firstname;
+	@Enumerated(EnumType.ORDINAL)
 	private Section section;
+	@Enumerated(EnumType.ORDINAL)
 	private Bloc bloc;
 	private String matricule;
 	private String academicYear;
 	private int creditsNumber;
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<Unit> units;
-	private Map<String, Boolean> validatedUnits;
-	private Map<String, Boolean> validatedActivities;
 	
 	public Student() {
 		super();
+		this.units = new ArrayList<Unit>();
 	}
 	
 	public Student(Integer id, String lastname, String firstname, Section section, Bloc bloc, String matricule,
-			String academicYear, int creditsNumber, List<Unit> units, Map<String, Boolean> validatedUnits,
-			Map<String, Boolean> validatedActivities) {
+			String academicYear, int creditsNumber, List<Unit> units) {
 		super();
 		this.id = id;
 		this.lastname = lastname;
@@ -46,9 +55,7 @@ public class Student implements Serializable {
 		this.matricule = matricule;
 		this.academicYear = academicYear;
 		this.creditsNumber = creditsNumber;
-		this.units = units;
-		this.validatedUnits = validatedUnits;
-		this.validatedActivities = validatedActivities;
+		this.units = new ArrayList<Unit>(units);
 	}
 
 	public Integer getId() {
@@ -121,22 +128,6 @@ public class Student implements Serializable {
 
 	public void setUnits(List<Unit> units) {
 		this.units = units;
-	}
-
-	public Map<String, Boolean> getValidatedUnits() {
-		return validatedUnits;
-	}
-
-	public void setValidatedUnits(Map<String, Boolean> validatedUnits) {
-		this.validatedUnits = validatedUnits;
-	}
-
-	public Map<String, Boolean> getValidatedActivities() {
-		return validatedActivities;
-	}
-
-	public void setValidatedActivities(Map<String, Boolean> validatedActivities) {
-		this.validatedActivities = validatedActivities;
 	}
 	
 }

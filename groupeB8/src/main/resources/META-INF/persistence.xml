@@ -4,7 +4,11 @@
 		<jta-data-source>jdbc/groupeB8</jta-data-source>
 	    <!-- Changer en fonction du nom de la classe -->
 	    <class>entities.Student</class>
+	    <class>entities.Unit</class>
 	    <class>entities.Activity</class>
+	    <class>entities.User</class>
+	    <class>entities.Admin</class>
+	    
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	

@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import dao.StudentDAO;
+import entities.Activity;
 import entities.Student;
 
 @Path("student")
@@ -27,7 +28,11 @@ public class StudentController {
 	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
-		return Response.ok(studentDAO.getById(id)).build();
+		Student s = studentDAO.getById(id);
+		if (s == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok(s).build();
 	}
 	
 	@GET

@@ -12,6 +12,7 @@ import javax.ws.rs.core.Response.Status;
 
 import dao.ActivityDAO;
 import entities.Activity;
+import entities.User;
 
 @Path("activity")
 public class ActivityController {
@@ -27,7 +28,11 @@ public class ActivityController {
 	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
-		return Response.ok(activityDAO.getById(id)).build();
+		Activity a = activityDAO.getById(id);
+		if (a == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok(a).build();
 	}
 	
 	@GET

@@ -8,7 +8,7 @@
 	    <class>entities.Activity</class>
 	    <class>entities.User</class>
 	    <class>entities.Admin</class>
-	    
+	    <class>models.UserCredentials</class>
 		
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 	

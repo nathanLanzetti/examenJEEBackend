@@ -29,7 +29,11 @@ public class UnitController {
 	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
-		return Response.ok(unitDAO.getById(id)).build();
+		Unit u = unitDAO.getById(id);
+		if (u == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok(u).build();
 	}
 	
 	@GET

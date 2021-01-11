@@ -7,7 +7,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-import dao.StudentDAO;
 import dao.UserDAO;
 import entities.User;
 import models.UserCredentials;
@@ -25,13 +24,21 @@ public class UserController {
 	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
-		return Response.ok(userDAO.getById(id)).build();
+		User u = userDAO.getById(id);
+		if (u == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok(u).build();
 	}
 	
 	@POST
 	@Path("auth")
-	public Response getById(UserCredentials credentials) {
-		return Response.ok(userDAO.logIn(credentials.getLogin(), credentials.getPassword())).build();
+	public Response logIn(UserCredentials credentials) {
+		User u = userDAO.logIn(credentials.getLogin(), credentials.getPassword());
+		if (u == null) {
+			return Response.status(404).build();
+		}
+		return Response.ok(u).build();
 	}
 	
 	@POST

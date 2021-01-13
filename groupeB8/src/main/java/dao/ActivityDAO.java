@@ -38,8 +38,16 @@ public class ActivityDAO /*implements ICrudRepository<Activity>*/ {
 	}
 
 	public Activity create(Activity o) {
-		em.persist(o);
-		return o;
+		/* passe une activité qui existe dans la bd
+		if (o.getId() != null) {
+			if (getById(o.getId()) == null)
+		}
+		*/
+		if (getByTitle(o.getTitle()) == null) {
+			em.persist(o);
+			return o;
+		}
+		return null;
 	}
 	
 	public Activity update(Activity o) {

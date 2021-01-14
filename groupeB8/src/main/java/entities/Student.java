@@ -27,7 +27,8 @@ public class Student implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String fullname;
+	private String lastname;
+	private String firstname;
 	@Enumerated(EnumType.ORDINAL)
 	private Section section;
 	@Enumerated(EnumType.ORDINAL)
@@ -35,34 +36,14 @@ public class Student implements Serializable {
 	private String matricule;
 	private String academicYear;
 	private int creditsNumber;
-	@OneToMany
-	private List<Unit> unitsGlobal;
-	@OneToMany
-	private List<Unit> unitsInPae;
-	private List<String> validatedUnits;
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Unit> units;
 	
 	public Student() {
 		super();
-		this.unitsGlobal = new ArrayList<Unit>();
-		this.unitsInPae = new ArrayList<Unit>();
-		this.validatedUnits = new ArrayList<String>();
+		this.units = new ArrayList<Unit>();
 	}
 	
-	public Student(String fullname, Section section, Bloc bloc, String matricule, String academicYear,
-			int creditsNumber, List<Unit> unitsGlobal, List<Unit> unitsInPae, List<String> validatedUnits) {
-		super();
-		this.fullname = fullname;
-		this.section = section;
-		this.bloc = bloc;
-		this.matricule = matricule;
-		this.academicYear = academicYear;
-		this.creditsNumber = creditsNumber;
-		this.unitsGlobal = unitsGlobal;
-		this.unitsInPae = unitsInPae;
-		this.validatedUnits = validatedUnits;
-	}
-	
-	/*
 	public Student(Integer id, String lastname, String firstname, Section section, Bloc bloc, String matricule,
 			String academicYear, int creditsNumber, List<Unit> units) {
 		super();
@@ -74,15 +55,31 @@ public class Student implements Serializable {
 		this.matricule = matricule;
 		this.academicYear = academicYear;
 		this.creditsNumber = creditsNumber;
-		this.unitsGlobal = new ArrayList<Unit>(units);
+		this.units = new ArrayList<Unit>(units);
 	}
-*/
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
 	public Section getSection() {
@@ -126,46 +123,11 @@ public class Student implements Serializable {
 	}
 
 	public List<Unit> getUnits() {
-		return unitsGlobal;
+		return units;
 	}
 
 	public void setUnits(List<Unit> units) {
-		this.unitsGlobal = units;
+		this.units = units;
 	}
-
-
-
-	public String getFullname() {
-		return fullname;
-	}
-
-
-
-	public void setFullname(String fullname) {
-		this.fullname = fullname;
-	}
-
-
-
-	public List<Unit> getUnitsInPae() {
-		return unitsInPae;
-	}
-
-
-
-	public void setUnitsInPae(List<Unit> unitsInPae) {
-		this.unitsInPae = unitsInPae;
-	}
-
-
-
-	public List<String> getValidatedUnits() {
-		return validatedUnits;
-	}
-
-
-
-	public void setValidatedUnits(List<String> validatedUnits) {
-		this.validatedUnits = validatedUnits;
-	}
+	
 }

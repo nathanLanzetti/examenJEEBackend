@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
+import entities.Student;
 import entities.Unit;
 
 @Stateless
@@ -42,6 +43,13 @@ public class UnitDAO {
 		return o;
 	}
 	
+	public List<Unit> createAll(List<Unit> units){
+		for (Unit unit : units) {
+			em.persist(unit);
+		}
+		return units;
+	}
+	
 	public Unit update(Unit o) {
 		em.merge(o);
 		return o;
@@ -54,5 +62,13 @@ public class UnitDAO {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean deleteAll() {
+		List<Unit> units = query();
+		for (Unit unit : units) {
+			em.remove(unit);
+		}
+		return true;
 	}
 }

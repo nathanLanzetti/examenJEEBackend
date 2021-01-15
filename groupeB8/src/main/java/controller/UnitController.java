@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -47,6 +49,12 @@ public class UnitController {
 		return Response.ok(unitDAO.create(unit)).build();
 	}
 	
+	@POST
+	@Path("all")
+	public Response createAll(List<Unit> units) {
+		return Response.ok(unitDAO.createAll(units)).build();
+	}
+	
 	@PUT
 	public Response update(Unit unit) {
 		if (unitDAO.getById(unit.getId()) != null) {
@@ -63,5 +71,12 @@ public class UnitController {
 			return Response.ok("Unit was deleted").build();
 		}
 		return Response.status(404).build();
+	}
+	
+	@DELETE
+	@Path("all")
+	public Response delete() {
+		unitDAO.deleteAll();
+		return Response.ok("Units were deleted").build();
 	}
 }

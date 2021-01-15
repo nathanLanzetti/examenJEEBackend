@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -46,6 +48,12 @@ public class StudentController {
 		return Response.ok(studentDAO.create(student)).build();
 	}
 	
+	@POST
+	@Path("all")
+	public Response createAll(List<Student> students) {
+		return Response.ok(studentDAO.createAll(students)).build();
+	}
+	
 	@PUT
 	public Response update(Student student) {
 		if (studentDAO.getById(student.getId()) != null) {
@@ -62,6 +70,13 @@ public class StudentController {
 			return Response.ok("Student was deleted").build();
 		}
 		return Response.status(404).build();
+	}
+	
+	@DELETE
+	@Path("all")
+	public Response delete() {
+		studentDAO.deleteAll();
+		return Response.ok("Students were deleted").build();
 	}
 	
 }

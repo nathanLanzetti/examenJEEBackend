@@ -42,6 +42,13 @@ public class StudentDAO {
 		return o;
 	}
 	
+	public List<Student> createAll(List<Student> students){
+		for (Student student : students) {
+			em.persist(student);
+		}
+		return students;
+	}
+	
 	public Student update(Student o) {
 		em.merge(o);
 		return o;
@@ -54,5 +61,13 @@ public class StudentDAO {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean deleteAll() {
+		List<Student> students = query();
+		for (Student student : students) {
+			em.remove(student);
+		}
+		return true;
 	}
 }

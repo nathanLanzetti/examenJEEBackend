@@ -29,6 +29,12 @@ public class UnitController {
 	}
 	
 	@GET
+	@Path("unique")
+	public Response queryWithoutDuplicates() {
+		return Response.ok(unitDAO.queryWithoutDuplicates()).build();
+	}
+	
+	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
 		Unit u = unitDAO.getById(id);

@@ -1,6 +1,8 @@
 package dao;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,6 +20,12 @@ public class UnitDAO {
 	
 	public List<Unit> query() {
 		return em.createQuery("SELECT unit FROM Unit unit").getResultList();
+	}
+	
+	public Set<Unit> queryWithoutDuplicates() {
+		//List<Unit> unitList = em.createQuery("SELECT unit FROM Unit unit").getResultList();
+		Set<Unit> unitSet = new HashSet<Unit>(em.createQuery("SELECT unit FROM Unit unit").getResultList());
+		return unitSet;
 	}
 	
 	public Unit getById(int id) {

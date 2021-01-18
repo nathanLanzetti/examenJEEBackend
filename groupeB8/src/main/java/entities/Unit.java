@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -30,7 +32,9 @@ public class Unit implements Serializable {
 	private int creditsNumber;
 	private String title;
 	private String academicYear;
+	@Enumerated(EnumType.ORDINAL)
 	private Section section;
+	@Enumerated(EnumType.ORDINAL)
 	private Bloc bloc;
 	
 	public Unit() {
@@ -145,7 +149,5 @@ public class Unit implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
 
 }

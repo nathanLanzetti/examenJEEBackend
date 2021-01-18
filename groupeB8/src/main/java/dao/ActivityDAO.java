@@ -15,14 +15,17 @@ public class ActivityDAO /*implements ICrudRepository<Activity>*/ {
 	@PersistenceContext(unitName = "groupeB8")
 	EntityManager em;
 	
+	// Retourne une liste d'activité
 	public List<Activity> query() {
 		return em.createQuery("SELECT activity FROM Activity activity").getResultList();
 	}
 	
+	// Retourne une activité en fonction d'un ID
 	public Activity getById(int id) {
 		return em.find(Activity.class, id);
 	}
 	
+	// Retourne une activité en fonction de son titre
 	public Activity getByTitle(String title) {
 		String stringRequest = "SELECT activity from Activity activity "
 				+ "where activity.title=?1";
@@ -37,12 +40,8 @@ public class ActivityDAO /*implements ICrudRepository<Activity>*/ {
 		}
 	}
 
+	// crée une activité si elle n'est pas présente dans la BD 
 	public Activity create(Activity o) {
-		/* passe une activité qui existe dans la bd
-		if (o.getId() != null) {
-			if (getById(o.getId()) == null)
-		}
-		*/
 		if (getByTitle(o.getTitle()) == null) {
 			em.persist(o);
 			return o;
@@ -50,11 +49,13 @@ public class ActivityDAO /*implements ICrudRepository<Activity>*/ {
 		return null;
 	}
 	
+	// modifie l'activité présente en BD
 	public Activity update(Activity o) {
 		em.merge(o);
 		return o;
 	}
 	
+	// supprime une activité si elle présente en BD
 	public boolean delete(int id) {
 		Activity activityToDelete = getById(id);
 		if (activityToDelete != null) {

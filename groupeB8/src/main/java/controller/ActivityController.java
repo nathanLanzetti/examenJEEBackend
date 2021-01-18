@@ -13,18 +13,22 @@ import javax.ws.rs.core.Response.Status;
 import dao.ActivityDAO;
 import entities.Activity;
 import entities.User;
-
+// définit le chemin pour ce controller => groupeB8/api/activity
 @Path("activity")
 public class ActivityController {
 	
 	@Inject
 	ActivityDAO activityDAO;
 	
+	// Retourne une réponse (200) contenant la liste de toutes les activités
+	// header de la requete est GET
 	@GET
 	public Response query() {
 		return Response.ok(activityDAO.query()).build();
 	}
 	
+	// Retourne une réponse (200) contenant l'activité si elle existe (sinon 404)
+	// activity/:id => id est un paramètre 
 	@GET
 	@Path("{id}")
 	public Response getById(@PathParam("id") int id) {
@@ -35,17 +39,21 @@ public class ActivityController {
 		return Response.ok(a).build();
 	}
 	
+	// Retourne une réponse (200) contenant l'activité si elle existe
+	// activity/title/:title => title est un paramètre
 	@GET
 	@Path("title/{title}")
-	public Response getById(@PathParam("title") String title) {
+	public Response getByTitle(@PathParam("title") String title) {
 		return Response.ok(activityDAO.getByTitle(title)).build();
 	}
 	
+	// Retourne une réponse (200) contenant l'activité a été créé
 	@POST
 	public Response create(Activity activity) {
 		return Response.ok(activityDAO.create(activity)).build();
 	}
 	
+	// Retourne une réponse (200) contenant l'activité modifié 
 	@PUT
 	public Response update(Activity activity) {
 		if (activityDAO.getById(activity.getId()) != null) {
@@ -54,7 +62,8 @@ public class ActivityController {
 		return Response.status(Status.NOT_FOUND).build();
 	}
 	
-	
+	// Retourne une réponse (200) quand l'activité est supprimé
+	// activity/:id => id est un paramètre 
 	@DELETE
 	@Path("{id}")
 	public Response delete(@PathParam("id") int id) {
